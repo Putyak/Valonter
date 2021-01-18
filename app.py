@@ -27,14 +27,14 @@ def get_streets():
         all_streets = json.load(f)
     # Получение файла с списком улиц и запись их в переменную
 
-    street_list = []
+    data = []
     for i in streets_id:
-        for each_street in all_streets:
-            if each_street[0] == i:
-                street_list.append(each_street)
-    # Пытаюсь пройти по всем улицам и записать их в новый массив
+        i = str(i)
+        street_record = all_streets[i]
+        data.append(street_record)
+    #  Перебираю список с улицами и записаваю по ним данные
 
-    return jsonify(street_list)
+    return jsonify(data)
 
 
 @app.route('/volunteers/', methods=["GET"])
