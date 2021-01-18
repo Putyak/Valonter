@@ -16,15 +16,15 @@ def get_all_districts():
 def get_streets():
     district = request.args.get("district")
     # Получение значение искомого района из запроса
-    with open("districts.json") as f:
-        data_districts = json.load(f)
+    with open("districts.json") as file_districts:
+        data_districts = json.load(file_districts)
     # Открытие файла с списком районов и запись их в переменную
     streets_data = data_districts[district]
     # Получение искомого района в фале
     streets_id = streets_data['streets']
     # Получение массива улиц, которые надо найти
-    with open("streets.json") as f:
-        all_streets = json.load(f)
+    with open("streets.json") as file_streets:
+        all_streets = json.load(file_streets)
     # Получение файла с списком улиц и запись их в переменную
 
     data = []
