@@ -40,11 +40,18 @@ def get_streets():
 @app.route('/volunteers/', methods=["GET"])
 def get_volunteers():
     streets = request.args.get("streets")
-    with open("streets.json") as f:
-        data_streets = json.load(f)
+    with open("streets.json") as file_streets:
+        data_streets = json.load(file_streets)
     street_set = data_streets[streets]
     valonter_id = street_set['volunteer']
-    return jsonify(valonter_id)
+    with open("volunteers.json") as file_volunteers:
+        data_volunteer = json.load(file_volunteers)
+    data = []
+    for i in valonter_id:
+        i = str(i)
+        valonter_record = data_volunteer[i]
+        data.append(valonter_record)
+    return jsonify(data)
 
 
 @app.route('/helpme/', methods=["POST"])
