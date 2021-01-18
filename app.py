@@ -41,8 +41,10 @@ def get_streets():
 def get_volunteers():
     streets = request.args.get("streets")
     with open("streets.json") as f:
-        data = json.load(f)
-    return jsonify(data[streets])
+        data_streets = json.load(f)
+    street_set = data_streets[streets]
+    valonter_id = street_set['volunteer']
+    return jsonify(valonter_id)
 
 
 @app.route('/helpme/', methods=["POST"])
