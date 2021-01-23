@@ -4,6 +4,8 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+app.config['JSON_AS_ASCII'] = False
+
 
 @app.route('/districts/', methods=["GET"])
 def get_all_districts():
@@ -79,7 +81,7 @@ def get_volunteers():
 def post_helpme():
     data = flask.request.json
     with open('helpme.json', 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f, ensure_ascii=False)
     return jsonify({"status": "success"}), 201
 
 
