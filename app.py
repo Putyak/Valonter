@@ -9,7 +9,16 @@ app = Flask(__name__)
 def get_all_districts():
     with open("districts.json") as f:
         districts = json.load(f)
-    return flask.jsonify(districts)
+
+    data = []
+    for i, j in districts.items():
+        d_data = {
+        "id": i,
+        "title": j['title'],
+    }
+        data.append(d_data)
+
+    return flask.jsonify(data)
 
 
 @app.route('/streets/', methods=["GET"])
@@ -27,12 +36,18 @@ def get_streets():
         all_streets = json.load(file_streets)
     # Получение файла с списком улиц и запись их в переменную
 
-    data = []
-    for i in streets_id:
-        i = str(i)
-        street_record = all_streets[i]
-        data.append(street_record)
-    #  Перебираю список с улицами и записаваю по ним данные
+
+    data=[]
+    for i, j in all_streets.items():
+        for f in streets_id:
+            if int(f) == int(i):
+                s_data = {
+            "id": i,
+            "title": j['title'],
+            "volunteer": j['volunteer']
+                }
+                data.append(s_data)
+
 
     return jsonify(data)
 
@@ -47,10 +62,16 @@ def get_volunteers():
     with open("volunteers.json") as file_volunteers:
         data_volunteer = json.load(file_volunteers)
     data = []
-    for i in valonter_id:
-        i = str(i)
-        valonter_record = data_volunteer[i]
-        data.append(valonter_record)
+    for i, j in data_volunteer.items():
+        for f in valonter_id:
+            if int(f) == int(i):
+                v_data = {
+                    "id": i,
+                    "name": j['name'],
+                    "userpic": j['userpic'],
+                    "phone": j['phone']
+                }
+                data.append(v_data)
     return jsonify(data)
 
 
